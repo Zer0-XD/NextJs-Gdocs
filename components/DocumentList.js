@@ -3,11 +3,12 @@ import Header from '../components/Header'
 import Button from "@material-tailwind/react/Button"
 import Icon from "@material-tailwind/react/Icon"
 import firebase from "firebase";
-import { useCollectionOnce } from 'react-firebase-hooks/firestore'
+import { useCollection, useCollectionOnce } from 'react-firebase-hooks/firestore'
 import { useSession } from "next-auth/client";
 import { db } from "../firebase";
 import DocumentsRow from './DocumentsRow';
 import { useEffect, useState } from 'react';
+import FlipMove from 'react-flip-move';
 
 
 function DocumentList() {
@@ -20,7 +21,7 @@ function DocumentList() {
 
     // console.log("session", session);
 
-    const [snapshot] = useCollectionOnce(
+    const [snapshot] = useCollection(
         db
             .collection('userDocs')
             .doc(session.user.email)
@@ -58,16 +59,19 @@ function DocumentList() {
                     </Button>
                 </div>
 
-                {
-                    snapshot?.docs.map((doc) => (
-                        <DocumentsRow
-                            key={doc.id}
-                            id={doc.id}
-                            fileName={doc.data().fileName}
-                            date={doc.data().time}
-                        />
-                    ))
-                }
+
+                <FlipMove enterAnimation="fade" leaveAnimation="accordionHorizontal">
+                    {
+                        snapshot?.docs.map((doc) => (
+                            <DocumentsRow
+                                key={doc.id}
+                                id={doc.id}
+                                fileName={doc.data().fileName}
+                                date={doc.data().time}
+                            />
+                        ))
+                    }
+                </FlipMove>
             </div>
 
         </section>

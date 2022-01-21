@@ -21,6 +21,7 @@ function TextEditor() {
     const router = useRouter();
     const { id } = router.query;
 
+
     const [snapshot] = useDocumentOnce(
         db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
     );
@@ -57,7 +58,7 @@ function TextEditor() {
             <Editor
                 editorState={editorState}
                 onEditorStateChange={onEditorStateChange}
-                toolbarClassName=" sticky top-0 z-50 justify-center mx-auto rounded-md shadow-md"
+                toolbarClassName=" sticky top-0 z-50 !justify-center mx-auto rounded-md shadow-md"
                 editorClassName="mt-6 p-10 bg-white shadow-lg max-w-5xl mx-auto mb-12 border"
             />
         </div>

@@ -5,10 +5,11 @@ import { db } from "../firebase";
 import Modal from '@material-tailwind/react/Modal';
 import ModalFooter from '@material-tailwind/react/ModalBody';
 import ModalBody from '@material-tailwind/react/ModalFooter';
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useSession } from "next-auth/client";
 
-function DocumentsRow({ id, fileName, date }) {
+// function DocumentsRow({ id, fileName, date }) {
+const DocumentsRow = forwardRef(({ id, fileName, date }, ref) => {
 
     const [showModal, setShowModal] = useState(false);
 
@@ -16,27 +17,29 @@ function DocumentsRow({ id, fileName, date }) {
 
     const router = useRouter();
 
-    const [deleted, setDeleted] = useState(false);
 
     const deleteDoc = () => {
-        db.collection("userDocs").doc(session.user.email).collection("docs").doc(id).delete();
-        setShowModal(false);
-        setDeleted(true);
+        // e.preventDefault()
+        db.collection("userDocs").doc(session.user.email).collection("docs").doc(id).delete().then(() => {
+            console.log("item deleted : ", id);
+        });
+        setShowModal(false)
     }
 
+
     const modal = (
-        <Modal size="sm" active={showModal} toggler={() => setShowModal(false)} >
-            <ModalBody>
-                <p>Are you sure ? </p>
+        <Modal size="regular" active={showModal} toggler={() => setShowModal(false)} >
+            <ModalBody className="flex justify-center items-center m-auto text-center">
+                <p className="font-medium text-lg text-left pr-20">Are you sure ?</p>
             </ModalBody>
             <ModalFooter >
-                <div className="flex justify-evenly mt-10 ">
+                <div className="flex justify-between space-x-5 mt-10 ">
 
                     <Button
                         color="blue"
                         buttonType="link"
-                        className="w-20 h-10"
-                        onClick={(e) => setShowModal(false)}
+                        className="w-30 h-10"
+                        onClick={() => setShowModal(false)}
                         ripple="light"
                     >
                         Close
@@ -45,7 +48,6 @@ function DocumentsRow({ id, fileName, date }) {
                     <Button
                         className="w-30 h-10"
                         color="red"
-                        onClick={deleteDoc}
                         ripple="light"
                         onClick={deleteDoc}
                     >
@@ -57,7 +59,7 @@ function DocumentsRow({ id, fileName, date }) {
     );
 
     return (
-        <div className="flex items-center p-4 rounded-lg hover:bg-gray-100 text-sm text-gray-700 cursor-pointer">
+        <div ref={ref} className="flex items-center p-4 rounded-lg hover:bg-gray-100 text-sm text-gray-700 cursor-pointer z-1">
             <Icon onClick={() => router.push(`/doc/${id}`)} size="3xl" color="blue" name="article" />
             <p onClick={() => router.push(`/doc/${id}`)} className="truncate pr-10 w-10 flex-grow pl-5">{fileName}</p>
             <p className="text-sm pr-5">{date?.toDate().toLocaleDateString()}</p>
@@ -77,8 +79,8 @@ function DocumentsRow({ id, fileName, date }) {
 
 
             {modal}
-        </div>
+        </div >
     )
-}
+})
 
 export default DocumentsRow

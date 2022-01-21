@@ -23,9 +23,10 @@ function CreateDocumentSection() {
 
     const router = useRouter();
 
-    const createDocument = () => {
+    const createDocument = (e) => {
         if (!input) return;
 
+        e.preventDefault();
         db.collection("userDocs").doc(session.user.email).collection("docs").add({
             fileName: input,
             time: firebase.firestore.FieldValue.serverTimestamp()
@@ -40,8 +41,8 @@ function CreateDocumentSection() {
         setInput("");
         setShowModal(false);
 
-        setTimeout(1000);
-        router.push(`/doc/${id}`);
+        // sleep(1000);
+        // router.push(`/doc/${id}`);
     }
 
     const modal = (
@@ -54,11 +55,11 @@ function CreateDocumentSection() {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter document name"
                     className="w-full"
-                    onKeyDown={(e) => e.key === "Enter" && createDocument()}
+                    onKeyDown={(e) => e.key === "Enter" && createDocument(e)}
                 />
             </ModalBody>
             <ModalFooter >
-                <div className="flex justify-evenly mt-10 ">
+                <div className="flex justify-evenly mt-10 z-30">
 
                     <Button
                         color="red"
