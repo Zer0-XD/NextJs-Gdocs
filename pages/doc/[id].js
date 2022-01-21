@@ -23,9 +23,9 @@ function Doc() {
 
     if (!session) return <Login />
 
-    // if (!loadingSnapshot && !snapshot.data().fileName) {
-    //     router.push('/')
-    // }
+    if (!loadingSnapshot && !snapshot.data().fileName) {
+        router.push('/')
+    }
 
 
     return (
@@ -54,7 +54,7 @@ function Doc() {
                     block={false}
                     iconOnly={true}
                     ripple="dark"
-                    className="h-12 w-[100px] border-0 "
+                    className="h-12 !w-[100px] border-0 "
                 >
                     <Icon name="people" size="md" /> <span className=' md:inline-flex'>Share</span>
                 </Button>
