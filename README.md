@@ -5,7 +5,7 @@
 
 ## TODO's 📠
 ```
-- [x] Document add/delete animation
+- ✅ Document add/delete animation
 - [ ] More login options
 
 - [ ] Adding Document templates
