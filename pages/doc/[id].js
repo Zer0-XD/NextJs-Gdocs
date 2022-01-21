@@ -18,7 +18,7 @@ function Doc() {
     const { id } = router.query;
 
     const [snapshot, loadingSnapshot] = useDocumentOnce(
-        db.collection("userDocs").doc(session.user.email).collection('docs').doc(id)
+        db.collection("userDocs").doc(session?.user?.email).collection('docs').doc(id)
     )
 
     if (!session) return <Login />
@@ -26,7 +26,6 @@ function Doc() {
     if (!loadingSnapshot && !snapshot.data().fileName) {
         router.push('/')
     }
-
 
     return (
         <div>
