@@ -59,7 +59,7 @@ const DocumentsRow = forwardRef(({ id, fileName, date }, ref) => {
     );
 
     return (
-        <div ref={ref} className="flex items-center p-4 rounded-lg hover:bg-gray-100 text-sm text-gray-700 cursor-pointer z-1">
+        <div ref={ref} className="flex items-center p-4 rounded-lg hover:bg-gray-100 text-sm text-gray-700 cursor-pointer ">
             <Icon onClick={() => router.push(`/doc/${id}`)} size="3xl" color="blue" name="article" />
             <p onClick={() => router.push(`/doc/${id}`)} className="truncate pr-10 w-10 flex-grow pl-5">{fileName}</p>
             <p className="text-sm pr-5">{date?.toDate().toLocaleDateString()}</p>

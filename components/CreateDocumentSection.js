@@ -47,7 +47,7 @@ function CreateDocumentSection() {
 
     const modal = (
         <Modal size="sm" active={showModal} toggler={() => setShowModal(false)} >
-            <ModalBody>
+            <ModalBody >
                 <Input
                     value={input}
                     type="text"
@@ -59,7 +59,7 @@ function CreateDocumentSection() {
                 />
             </ModalBody>
             <ModalFooter >
-                <div className="flex justify-evenly mt-10 z-30">
+                <div className="flex justify-evenly mt-10 ">
 
                     <Button
                         color="red"
@@ -86,7 +86,7 @@ function CreateDocumentSection() {
 
     return (
 
-        < section className='bg-[#F8F9FA] pb-5 px-10 sticky top-10 shadow-md' >
+        < section className='bg-[#F8F9FA] pb-5 px-10 sticky top-14 pt-0 shadow-md z-30' >
             <div className='max-w-3xl mx-auto'>
 
                 <div className='py-3 flex items-center justify-between'>
